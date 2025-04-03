@@ -17,9 +17,6 @@ jobs:
   claude-agent:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Run Claude Code GitHub Agent
         uses: potproject/claude-code-github-agent@main
         with:
