@@ -7,5 +7,10 @@ import (
 
 // 時間を表示する簡単なgo言語のプログラム
 func main() {
-	fmt.Println("The time is", time.Now())
+	now := time.Now()
+	fmt.Println("The time is", now)
+	
+	year := now.Year()
+	isLeapYear := (year%4 == 0 && year%100 != 0) || (year%400 == 0)
+	fmt.Printf("Year %d is a leap year: %t\n", year, isLeapYear)
 }
