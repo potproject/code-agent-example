@@ -1,7 +1,7 @@
 name: Claude Code GitHub Agent
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
   issues: write
 
