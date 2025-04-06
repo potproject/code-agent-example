@@ -38,8 +38,12 @@ func main() {
 		return
 	}
 
+	// 日本のタイムゾーンを設定
+	jst := time.FixedZone("JST", 9*60*60)
+	now := time.Now().In(jst)
+	
 	// 結果を表示
-	fmt.Printf("日時: %s\n", time.Now().Format("2006-01-02 15:04:05"))
+	fmt.Printf("日時: %s\n", now.Format("2006-01-02 15:04:05"))
 	fmt.Printf("場所: %s\n", weather.Name)
 	if len(weather.Weather) > 0 {
 		fmt.Printf("天気: %s\n", weather.Weather[0].Description)
