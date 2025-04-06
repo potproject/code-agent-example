@@ -27,8 +27,34 @@ type WeatherResponse struct {
 // 天気を取得して表示するプログラム
 func main() {
 	// コマンドライン引数の解析
-	location := flag.String("location", "Tokyo", "天気を取得する都市名")
+	var locationName string
+	flag.StringVar(&locationName, "location", "Tokyo", "天気を取得する都市名")
+	
+	// 場所選択
+	locations := map[string]string{
+		"tokyo": "Tokyo",
+		"la":    "Los Angeles",
+		"osaka": "Osaka",
+	}
+	
+	locationsHelp := "利用可能な場所: "
+	for k, v := range locations {
+		locationsHelp += fmt.Sprintf("%s (%s) ", k, v)
+	}
+	
+	location := flag.String("city", "", locationsHelp)
 	flag.Parse()
+	
+	// 場所が指定されていれば、それを使用
+	if *location != "" {
+		if cityName, ok := locations[*location]; ok {
+			locationName = cityName
+		} else {
+			fmt.Printf("未知の場所です: %s\n", *location)
+			fmt.Println(locationsHelp)
+			return
+		}
+	}
 	
 	// .envファイルから環境変数を読み込む
 	err := godotenv.Load()
@@ -37,7 +63,7 @@ func main() {
 	}
 	
 	// 指定された場所の天気を取得
-	weather, err := getWeather(*location)
+	weather, err := getWeather(locationName)
 	if err != nil {
 		fmt.Println("天気情報の取得に失敗しました:", err)
 		return
