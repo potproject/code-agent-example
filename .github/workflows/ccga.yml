@@ -1,4 +1,4 @@
-name: Claude Code GitHub Agent
+name: Code Agent
 
 permissions:
   contents: write
@@ -17,8 +17,8 @@ jobs:
   claude-agent:
     runs-on: ubuntu-latest
     steps:
-      - name: Run Claude Code GitHub Agent
-        uses: potproject/claude-code-github-agent@v0
+      - name: Run Code Agent
+        uses: potproject/code-agent@v0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
