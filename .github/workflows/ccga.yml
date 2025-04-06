@@ -14,7 +14,7 @@ on:
     types: [created]
 
 jobs:
-  claude-agent:
+  code-agent:
     runs-on: ubuntu-latest
     steps:
       - name: Run Code Agent
