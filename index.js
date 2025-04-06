@@ -1,5 +1,3 @@
-// index.js
-
 require('dotenv').config();
 const axios = require('axios');
 const yargs = require('yargs/yargs');
