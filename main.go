@@ -32,9 +32,10 @@ func main() {
 	
 	// 場所選択
 	locations := map[string]string{
-		"tokyo": "Tokyo",
-		"la":    "Los Angeles",
-		"osaka": "Osaka",
+		"tokyo":    "Tokyo",
+		"la":       "Los Angeles",
+		"osaka":    "Osaka",
+		"hokkaido": "Sapporo",
 	}
 	
 	locationsHelp := "利用可能な場所: "
