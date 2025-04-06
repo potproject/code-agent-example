@@ -4,8 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
+	"os"
 	"time"
+	
+	"github.com/joho/godotenv"
 )
 
 // OpenWeatherMap APIのレスポンス構造体
@@ -21,6 +25,12 @@ type WeatherResponse struct {
 
 // ロサンゼルスの天気を取得して表示するプログラム
 func main() {
+	// .envファイルから環境変数を読み込む
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("Warning: .envファイルの読み込みに失敗しました。環境変数から直接APIキーを取得します。")
+	}
+	
 	// ロサンゼルスの天気を取得
 	weather, err := getLAWeather()
 	if err != nil {
@@ -39,8 +49,14 @@ func main() {
 
 // ロサンゼルスの天気情報を取得する関数
 func getLAWeather() (*WeatherResponse, error) {
-	// OpenWeatherMap APIのエンドポイント (注: 実際の使用にはAPIキーが必要です)
-	url := "https://api.openweathermap.org/data/2.5/weather?q=Los%20Angeles&units=metric&appid=YOUR_API_KEY"
+	// 環境変数からAPIキーを取得
+	apiKey := os.Getenv("OPENWEATHERMAP_API_KEY")
+	if apiKey == "" {
+		return nil, fmt.Errorf("APIキーが設定されていません。.envファイルまたは環境変数にOPENWEATHERMAP_API_KEYを設定してください")
+	}
+	
+	// OpenWeatherMap APIのエンドポイント
+	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=Los%%20Angeles&units=metric&appid=%s", apiKey)
 
 	// HTTPリクエスト
 	resp, err := http.Get(url)
