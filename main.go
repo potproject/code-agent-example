@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -23,16 +24,20 @@ type WeatherResponse struct {
 	Name string `json:"name"`
 }
 
-// 東京の天気を取得して表示するプログラム
+// 天気を取得して表示するプログラム
 func main() {
+	// コマンドライン引数の解析
+	location := flag.String("location", "Tokyo", "天気を取得する都市名")
+	flag.Parse()
+	
 	// .envファイルから環境変数を読み込む
 	err := godotenv.Load()
 	if err != nil {
 		log.Println("Warning: .envファイルの読み込みに失敗しました。環境変数から直接APIキーを取得します。")
 	}
 	
-	// 東京の天気を取得
-	weather, err := getTokyoWeather()
+	// 指定された場所の天気を取得
+	weather, err := getWeather(*location)
 	if err != nil {
 		fmt.Println("天気情報の取得に失敗しました:", err)
 		return
@@ -51,8 +56,8 @@ func main() {
 	fmt.Printf("気温: %.1f°C\n", weather.Main.Temp)
 }
 
-// 東京の天気情報を取得する関数
-func getTokyoWeather() (*WeatherResponse, error) {
+// 指定された場所の天気情報を取得する関数
+func getWeather(location string) (*WeatherResponse, error) {
 	// 環境変数からAPIキーを取得
 	apiKey := os.Getenv("OPENWEATHERMAP_API_KEY")
 	if apiKey == "" {
@@ -60,7 +65,7 @@ func getTokyoWeather() (*WeatherResponse, error) {
 	}
 	
 	// OpenWeatherMap APIのエンドポイント
-	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=Tokyo&units=metric&appid=%s", apiKey)
+	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&appid=%s", location, apiKey)
 
 	// HTTPリクエスト
 	resp, err := http.Get(url)
