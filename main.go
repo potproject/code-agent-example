@@ -7,5 +7,6 @@ import (
 
 // 時間を表示する簡単なgo言語のプログラム
 func main() {
-	fmt.Println("The time is", time.Now())
+	now := time.Now()
+	fmt.Printf("現在のUNIX時間は %d です。\n", now.Unix())
 }
