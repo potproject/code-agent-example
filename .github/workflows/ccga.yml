@@ -23,4 +23,3 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           use-claude-code-proxy: 1
           proxy-openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          proxy-preferred-provider: openai
