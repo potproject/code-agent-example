@@ -21,4 +21,6 @@ jobs:
         uses: potproject/code-agent@develop
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          use-claude-code-proxy: 1
+          proxy-openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          proxy-preferred-provider: openai
