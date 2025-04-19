@@ -12,4 +12,5 @@ func main() {
 	fmt.Println("7 days later:", now.AddDate(0, 0, 7))
 	fmt.Println("10 days later:", now.AddDate(0, 0, 10))
 	fmt.Println("14 days later:", now.AddDate(0, 0, 14))
+	fmt.Println("30 days later:", now.AddDate(0, 0, 30))
 }
